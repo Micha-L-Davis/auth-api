@@ -1,25 +1,33 @@
 'use strict';
 
 const express = require('express');
-const dataModules = require('../models');
+const axios = require('axios');
+// const dataModules = require('../models');
 
 const router = express.Router();
 
-router.param('model', (req, res, next) => {
-  const modelName = req.params.model;
-  if (dataModules[modelName]) {
-    req.model = dataModules[modelName];
-    next();
-  } else {
-    next('Invalid Model');
-  }
-});
+// router.param('model', (req, res, next) => {
+//   const modelName = req.params.model;
+//   if (dataModules[modelName]) {
+//     req.model = dataModules[modelName];
+//     next();
+//   } else {
+//     next('Invalid Model');
+//   }
+// });
 
-router.get('/:model', handleGetAll);
-router.get('/:model/:id', handleGetOne);
-router.post('/:model', handleCreate);
-router.put('/:model/:id', handleUpdate);
-router.delete('/:model/:id', handleDelete);
+
+router.get('/suggest', async (request, response, next) => {
+  let url = 'https://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json';
+  let results = await axios.get(url);
+  response.status(200).send(results.data.applist.apps);
+});
+// router.get('/:model', handleGetAll);
+// router.get('/:model/:id', handleGetOne);
+// router.post('/:model', handleCreate);
+// router.put('/:model/:id', handleUpdate);
+// router.delete('/:model/:id', handleDelete);
+
 
 async function handleGetAll(req, res) {
   let allRecords = await req.model.get();

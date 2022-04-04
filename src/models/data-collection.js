@@ -10,9 +10,9 @@ class DataCollection {
     this.model = model;
   }
 
-  get(id) {
-    if (id) {
-      return this.model.findOne({ where: { id } });
+  get(name) {
+    if (name) {
+      return this.model.findOne({ where: { name } });
     }
     else {
       return this.model.findAll({});
@@ -24,6 +24,7 @@ class DataCollection {
   }
 
   update(id, data) {
+    // return this.model.update({ data }, { where: { id } });
     return this.model.findOne({ where: { id } })
       .then(record => record.update(data));
   }

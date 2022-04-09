@@ -2,8 +2,6 @@
 
 Latest Pull Request: https://github.com/Micha-L-Davis/auth-api/pull/1
 
-![UML Diagram](./assets/uml.png)
-
 ## Installation
 
 1. Clone this repository onto your local machine
